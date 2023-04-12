@@ -1,0 +1,129 @@
+import java.util.ArrayList;
+
+public class PlumbingService {
+
+    private ArrayList<Customer> customers;
+    private ArrayList<Plumber> plumbers;
+    private ArrayList<Appointment> appointments;
+    
+    public PlumbingService() {
+        this.customers = new ArrayList<Customer>();
+        this.plumbers = new ArrayList<Plumber>();
+        this.appointments = new ArrayList<Appointment>();
+    }
+    
+    public void addCustomer(Customer customer) {
+        this.customers.add(customer);
+    }
+    
+    public void addPlumber(Plumber plumber) {
+        this.plumbers.add(plumber);
+    }
+    
+    public void requestAppointment(Customer customer, Plumber plumber, String date) {
+        Appointment appointment = new Appointment(customer, plumber, date);
+        this.appointments.add(appointment);
+        System.out.println("Appointment requested for " + date);
+    }
+    
+    public ArrayList<Appointment> getAppointments() {
+        return this.appointments;
+    }
+    
+    public static void main(String[] args) {
+        PlumbingService plumbingService = new PlumbingService();
+        Customer customer1 = new Customer("John Smith", "123 Main St", "555-1234");
+        plumbingService.addCustomer(customer1);
+        Plumber plumber1 = new Plumber("Bob Johnson", "555-5678", "bob@plumbing.com");
+        plumbingService.addPlumber(plumber1);
+        plumbingService.requestAppointment(customer1, plumber1, "2023-04-15");
+        ArrayList<Appointment> appointments = plumbingService.getAppointments();
+        System.out.println("Appointments:");
+        for (Appointment appointment : appointments) {
+            System.out.println(appointment.toString());
+        }
+    }
+    
+}
+
+class Customer {
+
+    private String name;
+    private String address;
+    private String phone;
+    
+    public Customer(String name, String address, String phone) {
+        this.name = name;
+        this.address = address;
+        this.phone = phone;
+    }
+    
+    public String getName() {
+        return this.name;
+    }
+    
+    public String getAddress() {
+        return this.address;
+    }
+    
+    public String getPhone() {
+        return this.phone;
+    }
+    
+}
+
+class Plumber {
+
+    private String name;
+    private String phone;
+    private String email;
+    
+    public Plumber(String name, String phone, String email) {
+        this.name = name;
+        this.phone = phone;
+        this.email = email;
+    }
+    
+    public String getName() {
+        return this.name;
+    }
+    
+    public String getPhone() {
+        return this.phone;
+    }
+    
+    public String getEmail() {
+        return this.email;
+    }
+    
+}
+
+class Appointment {
+
+    private Customer customer;
+    private Plumber plumber;
+    private String date;
+    
+    public Appointment(Customer customer, Plumber plumber, String date) {
+        this.customer = customer;
+        this.plumber = plumber;
+        this.date = date;
+    }
+    
+    public Customer getCustomer() {
+        return this.customer;
+    }
+    
+    public Plumber getPlumber() {
+        return this.plumber;
+    }
+    
+    public String getDate() {
+        return this.date;
+    }
+    
+    public String toString() {
+        return this.date + ": " + this.customer.getName() + " - " + this.plumber.getName();
+    }
+    
+}
